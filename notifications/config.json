@@ -1,0 +1,19 @@
+{
+  "base": {
+    "project": "Caterpillar UI Tests",
+    "environment": "main",
+    "comment": "Regression run",
+    "reportLink": "http://localhost:8080/job/caterpillar-ui-tests/lastBuild/allure/",
+    "language": "en",
+    "allureFolder": "build/allure-results",
+    "enableChart": true
+  },
+  "telegram": {
+    "token": "8834154040:AAEGVavg673aqizg9VcYCXfHwmCDMmbkCcg",
+    "chat": "-1003900559475",
+    "topic": "",
+    "replyTo": "",
+    "templatePath": "/templates/telegram.ftl"
+  }
+}
+
