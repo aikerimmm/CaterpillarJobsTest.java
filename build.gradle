@@ -1,4 +1,3 @@
-cat > build.gradle << 'EOF'
 plugins {
     id 'java'
     id 'io.qameta.allure' version '2.12.0'
