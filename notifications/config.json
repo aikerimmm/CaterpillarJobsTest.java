@@ -5,7 +5,7 @@
     "comment": "Regression run",
     "reportLink": "http://localhost:8080/job/caterpillar-ui-tests/lastBuild/allure/",
     "language": "en",
-    "allureFolder": "build/allure-results",
+    "allureFolder": "allure-report",
     "enableChart": true
   },
   "telegram": {
