@@ -1,4 +1,4 @@
-# <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Caterpillar_Inc_logo.svg/1200px-Caterpillar_Inc_logo.svg.png" width="30"> Проект по автоматизации тестирования сайта Caterpillar Careers
+# Проект по автоматизации тестирования сайта Caterpillar Careers
 
 > Проект включает в себя UI-автотесты для сайта Caterpillar Careers, с использованием современного стека технологий, интеграцией в CI/CD процессы и подключением отчётности.
 
