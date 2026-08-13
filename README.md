@@ -361,7 +361,7 @@ A recorded example of automated UI test execution is available in the repository
 
 ### Watch the test execution
 
-[▶️ Open Test Execution Video](media/test-execution.mov)
+[▶️ Watch Test Execution](media/test-execution.mp4)
 
 The video demonstrates the automated test interacting with the Caterpillar Careers website.
 
