@@ -2,7 +2,7 @@
 
 UI test automation project for the [Caterpillar Careers](https://careers.caterpillar.com/) website.
 
-The project demonstrates automated testing of the Caterpillar Jobs page using Java, Selenide, JUnit 5, Gradle, Allure Report and Jenkins CI.
+The project demonstrates automated testing of the Caterpillar Jobs page using **Java, Selenide, JUnit 5, Gradle, Allure Report, Jenkins, and Selenoid**.
 
 ---
 
@@ -14,29 +14,33 @@ The project demonstrates automated testing of the Caterpillar Jobs page using Ja
 - [Project Structure](#project-structure)
 - [Test Architecture](#test-architecture)
 - [Running Tests](#running-tests)
-- [Jenkins CI](#jenkins-ci)
+- [Selenoid](#selenoid)
 - [Allure Report](#allure-report)
+- [Jenkins CI](#jenkins-ci)
 - [Telegram Notifications](#telegram-notifications)
 - [Test Execution Video](#test-execution-video)
 
 ---
 
-## 📌 Description
+## 📖 Description
 
-This project contains automated UI tests for the Caterpillar Careers Jobs page.
+This project contains automated UI tests for the **Caterpillar Careers Jobs** page.
 
-The tests verify the main functionality of the jobs search page, including:
+The main goal of the project is to demonstrate a maintainable UI automation framework with:
 
-- opening the Caterpillar Jobs page;
-- verifying that job vacancies are displayed;
-- searching for jobs by keyword;
-- verifying that search results are returned;
-- verifying the number of displayed job cards;
-- verifying that job titles are displayed correctly.
+- Page Object pattern
+- reusable `TestBase`
+- Selenide smart waits
+- Allure `@Step` annotations
+- automatic screenshots and page source attachments
+- remote browser execution with Selenoid
+- CI execution with Jenkins
+- Allure reporting
+- Telegram test notifications
 
-The project follows the **Page Object Model** pattern.
+Tested page:
 
-Test setup and browser configuration are separated into `TestBase`, while page interactions and UI assertions are implemented inside the Page Object.
+https://careers.caterpillar.com/en/jobs/
 
 ---
 
@@ -50,68 +54,97 @@ Test setup and browser configuration are separated into `TestBase`, while page i
 | JUnit 5 | Test framework |
 | Gradle | Build and dependency management |
 | Allure Report | Test reporting |
-| Allure Selenide | Screenshots and page source attachments |
-| Jenkins | CI test execution |
-| Docker | Containerized infrastructure |
+| Allure Selenide | Selenide steps and attachments |
 | Selenoid | Remote browser execution |
-| Git / GitHub | Version control |
-| Telegram Bot | CI test result notifications |
+| Docker | Running Selenoid infrastructure |
+| Jenkins | Continuous Integration |
+| Git | Version control |
+| GitHub | Source code repository |
 
 ---
 
-## ✅ Implemented Tests
+## 🧪 Implemented Tests
 
-The project contains automated checks for the Caterpillar Jobs page.
+The project contains automated tests for the Caterpillar Jobs page.
 
-### Page opening
+### Page opens and displays jobs
 
-Verifies that the jobs page opens successfully and job results are available.
+Verifies that the jobs page is successfully opened and job results are available.
 
-### Job search
+### Search returns results
 
-Searches for jobs using the `Engineer` keyword and verifies that search results are displayed.
+Performs a job search using the keyword:
 
-### Job cards
+```text
+Engineer
+```
 
-Verifies that the expected job cards are loaded on the page.
+and verifies that search results are displayed.
 
-### Job title
+### Job cards are displayed
 
-Verifies that the first displayed vacancy contains a non-empty job title.
+Verifies that the expected number of job cards is loaded on the page.
 
-### Job count
+### First job title is displayed
 
-Verifies that the number of available job cards is greater than the expected minimum value.
+Verifies that the first job card contains a non-empty job title.
 
-Selenide conditions such as `shouldBe()` and `shouldHave()` are used for UI assertions.  
-These conditions provide built-in waiting and help reduce flaky tests.
+### Job count is greater than minimum value
+
+Verifies that the number of available jobs is greater than the specified minimum value.
+
+The assertions for web elements are implemented using **Selenide conditions** such as:
+
+```java
+element.shouldBe(visible);
+
+element.shouldHave(text("Expected text"));
+
+collection.shouldHave(
+        CollectionCondition.sizeGreaterThan(minSize)
+);
+```
+
+Selenide conditions provide built-in smart waiting and help reduce flaky UI tests.
 
 ---
 
-## 📂 Project Structure
+## 📁 Project Structure
 
 ```text
 CaterpillarJobsTest.java
 ├── .github
+│   └── images
+│       ├── allure.png
+│       ├── jenkins.png
+│       └── telegram.png
+│
 ├── gradle
-│   └── wrapper
+│
 ├── media
 │   └── test-execution.mov
+│
 ├── notifications
 │   ├── allure-notifications-4.11.0.jar
 │   └── config.json
+│
 ├── src
 │   ├── main
+│   │
 │   └── test
 │       ├── java
 │       │   ├── base
 │       │   │   └── TestBase.java
+│       │   │
 │       │   ├── pages
 │       │   │   └── CaterpillarJobsPage.java
+│       │   │
 │       │   └── tests
 │       │       └── CaterpillarJobsTest.java
+│       │
 │       └── resources
 │           └── selenide.properties
+│
 ├── .gitignore
 ├── build.gradle
 ├── gradlew
@@ -125,60 +158,61 @@ CaterpillarJobsTest.java
 
 ## 🏗 Test Architecture
 
-The project uses the **Page Object Model** pattern.
+The project follows the **Page Object Model** approach.
 
 ### TestBase
 
-`TestBase` contains common test configuration and setup logic.
+`TestBase` contains common test configuration and lifecycle logic.
 
 It is responsible for:
 
-- browser configuration;
-- Selenide configuration;
-- Allure Selenide listener configuration;
-- screenshot attachments;
-- page source attachments;
-- common setup and teardown logic.
+- browser configuration
+- Selenide configuration
+- Allure Selenide listener registration
+- screenshot attachments
+- page source attachments
+- browser cleanup after test execution
 
-This keeps configuration code separate from the test scenarios.
+This keeps configuration and common test logic outside individual test classes.
 
 ### Page Object
 
 `CaterpillarJobsPage` contains:
 
-- page locators;
-- interactions with UI elements;
-- search actions;
-- UI validations;
-- Selenide assertions.
+- page elements
+- user actions
+- page-level verification methods
 
-Page methods are annotated with Allure `@Step` annotations to make test execution easier to understand in Allure Report.
+Page methods use Allure `@Step` annotations to make test execution easier to understand in reports.
 
 Example:
 
 ```java
 @Step("Verify that job cards count is greater than {minSize}")
 public CaterpillarJobsPage verifyCardsCountIsGreaterThan(int minSize) {
-    jobCards.shouldHave(CollectionCondition.sizeGreaterThan(minSize));
+    jobCards.shouldHave(
+            CollectionCondition.sizeGreaterThan(minSize)
+    );
     return this;
 }
 ```
 
 ### Tests
 
-Test classes contain only high-level test scenarios.
+`CaterpillarJobsTest` contains test scenarios only.
 
 Example:
 
 ```java
 @Test
 void jobCountIsPositiveNumber() {
-    jobsPage.open()
+    jobsPage
+            .open()
             .verifyCardsCountIsGreaterThan(10);
 }
 ```
 
-This approach keeps tests readable and moves implementation details into the Page Object.
+This approach keeps the test code readable and separates test scenarios from implementation details.
 
 ---
 
@@ -186,28 +220,13 @@ This approach keeps tests readable and moves implementation details into the Pag
 
 ### Prerequisites
 
-Before running the project, make sure the following tools are installed:
+Make sure the following tools are installed:
 
 - Java
-- Git
 - Docker
-- Google Chrome
+- Gradle Wrapper is included in the project
 
-Check Java:
-
-```bash
-java -version
-```
-
-Check Docker:
-
-```bash
-docker --version
-```
-
----
-
-### Clone the repository
+Clone the repository:
 
 ```bash
 git clone https://github.com/aikerimmm/CaterpillarJobsTest.java.git
@@ -219,25 +238,13 @@ Open the project directory:
 cd CaterpillarJobsTest.java
 ```
 
----
-
-### Run all tests
+Run all tests:
 
 ```bash
 ./gradlew clean test
 ```
 
-Successful execution should finish with:
-
-```text
-BUILD SUCCESSFUL
-```
-
----
-
-### Run a specific test
-
-For example:
+Run a specific test:
 
 ```bash
 ./gradlew clean test --tests "tests.CaterpillarJobsTest.pageOpensAndShowsJobs"
@@ -245,33 +252,31 @@ For example:
 
 ---
 
-## 🚀 Jenkins CI
+## 🐳 Selenoid
 
-The project contains a `Jenkinsfile` for automated test execution in Jenkins.
+The project supports remote browser execution using **Selenoid**.
 
-The CI pipeline is responsible for running the automated tests and generating test results.
+Selenide remote configuration:
 
-Typical pipeline flow:
-
-```text
-GitHub Repository
-        ↓
-     Jenkins
-        ↓
-   Gradle Build
-        ↓
- Automated Tests
-        ↓
-  Allure Results
-        ↓
-  Allure Report
-        ↓
-Telegram Notification
+```properties
+selenide.browser=chrome
+selenide.remote=http://localhost:4444/wd/hub
+selenide.headless=false
 ```
 
-The Jenkins integration allows tests to be executed automatically instead of relying only on local execution.
+Selenoid runs browser sessions inside Docker containers, which makes the test environment isolated and reproducible.
 
-> Jenkins is running in a local environment, therefore a public Jenkins URL is not provided in this repository.
+Check that Selenoid is running:
+
+```bash
+docker ps
+```
+
+The Selenoid container should be available on port:
+
+```text
+4444
+```
 
 ---
 
@@ -281,87 +286,147 @@ The project is integrated with **Allure Report**.
 
 Allure provides detailed information about test execution, including:
 
-- test status;
-- test steps;
-- execution duration;
-- screenshots;
-- page source attachments;
-- failed test information.
+- test status
+- execution steps
+- execution duration
+- screenshots
+- page source
+- failure details
 
-### Generate Allure report
+### Allure Report Example
 
-Run:
+<p align="center">
+  <img src=".github/images/allure.png" alt="Allure Report" width="900">
+</p>
+
+### Generate Allure Report
 
 ```bash
 ./gradlew allureReport
 ```
 
-### Open Allure report
-
-Run:
+### Open Allure Report
 
 ```bash
 ./gradlew allureServe
 ```
 
-The report will be generated from the test execution results.
+Screenshots and page source are attached to Allure to simplify failure investigation.
 
-### Allure Attachments
+---
 
-`TestBase` and `AllureSelenide` are configured to attach useful debugging information to the report.
+## 🔄 Jenkins CI
 
-This includes:
+The project contains a `Jenkinsfile` for automated test execution in CI.
 
-```text
-Screenshot
-Page Source
-```
+The Jenkins pipeline can be used to:
 
-These attachments make it easier to investigate failed UI tests.
+- checkout the project
+- execute automated UI tests
+- collect test results
+- generate Allure results
+- publish the Allure report
+
+### Jenkins Pipeline
+
+<p align="center">
+  <img src=".github/images/jenkins.png" alt="Jenkins Pipeline" width="900">
+</p>
+
+This allows automated tests to be executed consistently without depending only on a local development environment.
 
 ---
 
 ## 📩 Telegram Notifications
 
-The Jenkins pipeline is integrated with Telegram notifications.
+The project supports Telegram notifications for test execution results.
 
-After test execution, the pipeline can send information about the build and test results to Telegram.
+Notification configuration is stored in:
 
-This makes it possible to quickly see the CI execution status without constantly checking Jenkins.
+```text
+notifications/
+├── allure-notifications-4.11.0.jar
+└── config.json
+```
 
-The notification configuration is stored separately from the test logic.
+After test execution, the notification contains information about the test run and its result.
 
-Sensitive values such as bot tokens should not be committed to the repository.
+### Telegram Notification Example
+
+<p align="center">
+  <img src=".github/images/telegram.png" alt="Telegram Notification" width="500">
+</p>
+
+Sensitive credentials and tokens should not be stored directly in the public repository.
 
 ---
 
 ## 🎥 Test Execution Video
 
-An example of automated UI test execution is included in the repository.
+A recorded example of automated UI test execution is available in the repository.
 
-[▶️ Watch Test Execution](media/test-execution.mov)
+### Watch the test execution
 
-The video demonstrates an automated Caterpillar Jobs UI test execution and successful Gradle build.
+[▶️ Open Test Execution Video](media/test-execution.mov)
+
+The video demonstrates the automated test interacting with the Caterpillar Careers website.
 
 ---
 
-## 🔐 Configuration and Security
+## 📎 Allure Attachments
 
-Environment-specific configuration and sensitive data should not be stored directly in the repository.
+For easier debugging, test execution information is automatically attached to the Allure report.
 
-IDE-specific files are also excluded from Git.
+Available attachments include:
 
-The `.gitignore` configuration excludes files such as:
+- browser screenshots
+- page source
+- Selenide execution steps
+- failure information
+
+Example screenshot attachment logic is located in:
 
 ```text
-.idea/
-.gradle/
-build/
-*.iml
-.DS_Store
+src/test/java/base/TestBase.java
 ```
 
-This keeps the repository clean and prevents IDE-specific configuration from being shared between developers.
+---
+
+## ⚙️ Configuration
+
+Selenide configuration is located in:
+
+```text
+src/test/resources/selenide.properties
+```
+
+Example:
+
+```properties
+selenide.browser=chrome
+selenide.remote=http://localhost:4444/wd/hub
+selenide.headless=false
+```
+
+The configuration can be adjusted depending on whether tests are executed locally or through Selenoid.
+
+---
+
+## 🔍 Key Features
+
+- Page Object Model
+- reusable TestBase
+- Selenide smart waits
+- Selenide conditions instead of standard JUnit assertions for web elements
+- Allure `@Step` annotations
+- screenshots on test failures
+- page source attachments
+- remote browser execution
+- Docker/Selenoid integration
+- Jenkins CI pipeline
+- Allure reporting
+- Telegram notifications
+- recorded test execution example
 
 ---
 
