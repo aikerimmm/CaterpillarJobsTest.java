@@ -357,15 +357,15 @@ Sensitive credentials and tokens should not be stored directly in the public rep
 
 ## 🎥 Test Execution Video
 
-A recorded example of automated UI test execution is available in the repository.
+A recorded example of automated UI test execution.
 
-### Watch the test execution
+<p align="center">
+  <img src=".github/images/video/test-execution.gif" width="800">
+</p>
 
-[▶️ Watch Test Execution](media/test-execution.mp4)
+The animation demonstrates the automated tests interacting with the Caterpillar Careers website.
 
-The video demonstrates the automated test interacting with the Caterpillar Careers website.
-
----
+[▶️ Open full test execution video](media/test-execution.mp4)
 
 ## 📎 Allure Attachments
 
