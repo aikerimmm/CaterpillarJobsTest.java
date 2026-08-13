@@ -2,43 +2,81 @@ package pages;
 
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
+import io.qameta.allure.Step;
+
+import static com.codeborne.selenide.CollectionCondition.size;
+import static com.codeborne.selenide.CollectionCondition.sizeGreaterThan;
+import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.*;
 
 public class CaterpillarJobsPage {
 
+    private static final String JOBS_URL =
+            "https://careers.caterpillar.com/en/jobs/?search=&team=Technology%2C+Digital+and+Data&team=Engineering#results";
+
     private final SelenideElement searchInput = $("#l-search");
     private final SelenideElement searchButton = $("#js-main-job-search");
     private final SelenideElement resultsContainer = $("#js-job-search-results");
+
     private final ElementsCollection jobCards = $$(".card-job");
 
+    @Step("Open Caterpillar jobs page")
     public CaterpillarJobsPage open() {
-        com.codeborne.selenide.Selenide.open("https://careers.caterpillar.com/en/jobs/?search=&team=Technology%2C+Digital+and+Data&team=Engineering#results");
+        com.codeborne.selenide.Selenide.open(JOBS_URL);
+        resultsContainer.shouldBe(visible);
         return this;
     }
 
+    @Step("Close cookie banner if it is displayed")
     public CaterpillarJobsPage closeCookieBanner() {
-        SelenideElement cookieBtn = $("[id*='cookie'] button, .js-accept-cookies, #onetrust-accept-btn-handler");
-        if (cookieBtn.exists()) {
-            cookieBtn.click();
+        SelenideElement cookieButton =
+                $("[id*='cookie'] button, .js-accept-cookies, #onetrust-accept-btn-handler");
+
+        if (cookieButton.exists()) {
+            cookieButton.click();
         }
+
         return this;
     }
 
+    @Step("Search jobs by query: {query}")
     public CaterpillarJobsPage search(String query) {
-        searchInput.setValue(query);
-        searchButton.click();
+        searchInput
+                .shouldBe(visible)
+                .setValue(query);
+
+        searchButton
+                .shouldBe(enabled)
+                .click();
+
         return this;
     }
 
-    public int getJobCount() {
-        return Integer.parseInt(resultsContainer.attr("data-results"));
+    @Step("Verify that job results are displayed")
+    public CaterpillarJobsPage verifyJobsAreDisplayed() {
+        jobCards.shouldHave(sizeGreaterThan(0));
+        return this;
     }
 
-    public int getVisibleCardCount() {
-        return jobCards.size();
+    @Step("Verify that exactly {expectedSize} job cards are displayed")
+    public CaterpillarJobsPage verifyCardsCount(int expectedSize) {
+        jobCards.shouldHave(size(expectedSize));
+        return this;
     }
 
-    public String getFirstJobTitle() {
-        return jobCards.first().$(".js-view-job").getText();
+    @Step("Verify that job cards count is greater than {minSize}")
+    public CaterpillarJobsPage verifyCardsCountIsGreaterThan(int minSize) {
+        jobCards.shouldHave(sizeGreaterThan(minSize));
+        return this;
+    }
+
+    @Step("Verify that the first job title is not empty")
+    public CaterpillarJobsPage verifyFirstJobTitleIsNotEmpty() {
+        jobCards.first()
+                .$(".js-view-job")
+                .shouldBe(visible)
+                .shouldNotBe(empty);
+
+        return this;
     }
 }
