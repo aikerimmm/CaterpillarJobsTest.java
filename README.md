@@ -45,5 +45,11 @@ Java | Selenide | Gradle | JUnit 5 | Allure | Jenkins | Docker + Selenoid
 ## 🏗 Jenkins
 ![Jenkins](.github/images/jenkins.png)
 
+## 🎥 Test Execution Video
+
+Example of automated UI test execution using Selenide:
+
+[▶️ Watch test execution](media/test-execution.mov)
+
 ## 📱 Telegram уведомления
 ![Telegram](.github/images/telegram.png)
