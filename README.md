@@ -295,9 +295,7 @@ Allure provides detailed information about test execution, including:
 
 ### Allure Report Example
 
-<p align="center">
-  <img src=".github/images/allure.png" alt="Allure Report" width="900">
-</p>
+![Allure Report](.github/images/allure.png)
 
 ### Generate Allure Report
 
@@ -329,9 +327,7 @@ The Jenkins pipeline can be used to:
 
 ### Jenkins Pipeline
 
-<p align="center">
-  <img src=".github/images/jenkins.png" alt="Jenkins Pipeline" width="900">
-</p>
+![Jenkins Pipeline](.github/images/jenkins.png)
 
 This allows automated tests to be executed consistently without depending only on a local development environment.
 
@@ -353,9 +349,7 @@ After test execution, the notification contains information about the test run a
 
 ### Telegram Notification Example
 
-<p align="center">
-  <img src=".github/images/telegram.png" alt="Telegram Notification" width="500">
-</p>
+![Telegram Notification](.github/images/telegram.png)
 
 Sensitive credentials and tokens should not be stored directly in the public repository.
 
