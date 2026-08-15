@@ -1,21 +1,26 @@
 package tests;
 
 import base.TestBase;
+import io.qameta.allure.Owner;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import pages.CaterpillarJobsPage;
 
+@Owner("Aikerim Mukhtarbekova")
 public class CaterpillarJobsTest extends TestBase {
 
     private final CaterpillarJobsPage jobsPage = new CaterpillarJobsPage();
 
     @Test
-    void pageOpensAndShowsJobs() {
+    @DisplayName("Job results are displayed")
+    void pageOpensAndShowsJobsTest() {
         jobsPage.open()
                 .verifyJobsAreDisplayed();
     }
 
     @Test
-    void searchReturnsResults() {
+    @DisplayName("Job results for title Engineer are displayed")
+    void searchReturnsResultsTest() {
         jobsPage.open()
                 .closeCookieBanner()
                 .search("Engineer")
@@ -23,19 +28,22 @@ public class CaterpillarJobsTest extends TestBase {
     }
 
     @Test
-    void pageShowsTwentyCards() {
+    @DisplayName("Jobs cards count is 20")
+    void pageShowsTwentyCardsTest() {
         jobsPage.open()
                 .verifyCardsCount(20);
     }
 
     @Test
-    void firstJobTitleIsNotEmpty() {
+    @DisplayName("First job title is not empty")
+    void firstJobTitleIsNotEmptyTest() {
         jobsPage.open()
                 .verifyFirstJobTitleIsNotEmpty();
     }
 
     @Test
-    void jobCountIsPositiveNumber() {
+    @DisplayName("Job cards count is greater than 10")
+    void jobCountIsPositiveNumberTest() {
         jobsPage.open()
                 .verifyCardsCountIsGreaterThan(10);
     }
