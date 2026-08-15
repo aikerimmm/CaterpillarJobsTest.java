@@ -286,12 +286,13 @@ The Selenoid container should be available on port:
 
 ## 📊 Allure Report
 
-The project is integrated with **Allure Report**.
+The project uses **Allure Report** for test execution reporting.
 
-Allure provides detailed information about test execution, including:
+🌐 [Open Public Allure Report](https://aikerimmm.github.io/CaterpillarJobsTest.java/)
 
-- test status
-- execution steps
+The report includes:
+- test execution status
+- test steps
 - execution duration
 - screenshots
 - page source
@@ -319,15 +320,16 @@ Screenshots and page source are attached to Allure to simplify failure investiga
 
 ## 🔄 Jenkins CI
 
-The project contains a `Jenkinsfile` for automated test execution in CI.
+The project is integrated with **Jenkins CI**.
 
-The Jenkins pipeline can be used to:
+The Jenkins pipeline:
+- checks out the project from GitHub
+- runs automated UI tests
+- generates Allure results
+- publishes the Allure report
+- sends test execution notifications
 
-- checkout the project
-- execute automated UI tests
-- collect test results
-- generate Allure results
-- publish the Allure report
+> Jenkins is configured and executed locally, therefore the Jenkins instance itself is not publicly accessible.
 
 ### Jenkins Pipeline
 
