@@ -11,8 +11,7 @@ import static com.codeborne.selenide.Selenide.*;
 
 public class CaterpillarJobsPage {
 
-    private static final String JOBS_URL =
-            "https://careers.caterpillar.com/en/jobs/?search=&team=Technology%2C+Digital+and+Data&team=Engineering#results";
+    private static final String JOBS_URL ="/jobs/?search=&team=Technology%2C+Digital+and+Data&team=Engineering#results";
 
     private final SelenideElement searchInput = $("#l-search");
     private final SelenideElement searchButton = $("#js-main-job-search");

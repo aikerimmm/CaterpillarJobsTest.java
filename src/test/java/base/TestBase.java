@@ -8,18 +8,18 @@ import io.qameta.allure.selenide.AllureSelenide;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.openqa.selenium.OutputType;
-import org.openqa.selenium.chrome.ChromeOptions;
 
 import java.io.ByteArrayInputStream;
-import java.util.Map;
 
 public class TestBase {
 
     @BeforeAll
     static void setUp() {
-        ChromeOptions options = new ChromeOptions();
 
-        Configuration.browserCapabilities = options;
+        Configuration.browser = System.getProperty("browser", "chrome");
+        Configuration.browserSize = System.getProperty("browserSize", "chrome");
+        Configuration.baseUrl = "https://careers.caterpillar.com/en";
+        Configuration.pageLoadStrategy = "eager";
 
         SelenideLogger.addListener(
                 "AllureSelenide",
