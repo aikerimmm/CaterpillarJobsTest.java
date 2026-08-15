@@ -17,9 +17,11 @@ public class TestBase {
     static void setUp() {
 
         Configuration.browser = System.getProperty("browser", "chrome");
-        Configuration.browserSize = System.getProperty("browserSize", "chrome");
-        Configuration.baseUrl = "https://careers.caterpillar.com/en";
+        Configuration.browserSize = System.getProperty("browserSize", "1920x1080");
+        Configuration.baseUrl = System.getProperty("baseUrl", "https://careers.caterpillar.com/en");
         Configuration.pageLoadStrategy = "eager";
+
+        Configuration.remote = System.getProperty("remoteUrl");
 
         SelenideLogger.addListener(
                 "AllureSelenide",
