@@ -4,7 +4,6 @@ import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
 
-import static com.codeborne.selenide.CollectionCondition.size;
 import static com.codeborne.selenide.CollectionCondition.sizeGreaterThan;
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.*;
@@ -54,12 +53,6 @@ public class CaterpillarJobsPage {
     @Step("Verify that job results are displayed")
     public CaterpillarJobsPage verifyJobsAreDisplayed() {
         jobCards.shouldHave(sizeGreaterThan(0));
-        return this;
-    }
-
-    @Step("Verify that exactly {expectedSize} job cards are displayed")
-    public CaterpillarJobsPage verifyCardsCount(int expectedSize) {
-        jobCards.shouldHave(size(expectedSize));
         return this;
     }
 

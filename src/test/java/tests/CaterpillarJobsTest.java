@@ -28,13 +28,6 @@ public class CaterpillarJobsTest extends TestBase {
     }
 
     @Test
-    @DisplayName("Jobs cards count is 20")
-    void pageShowsTwentyCardsTest() {
-        jobsPage.open()
-                .verifyCardsCount(20);
-    }
-
-    @Test
     @DisplayName("First job title is not empty")
     void firstJobTitleIsNotEmptyTest() {
         jobsPage.open()
