@@ -1,5 +1,9 @@
 # Caterpillar Jobs UI Test Automation
 
+<p align="center">
+  <img src="media/caterpillar-logo.png" alt="Caterpillar Logo" width="450">
+</p>
+
 UI test automation project for the [Caterpillar Careers](https://careers.caterpillar.com/) website.
 
 The project demonstrates automated testing of the Caterpillar Jobs page using **Java, Selenide, JUnit 5, Gradle, Allure Report, Jenkins, and Selenoid**.
