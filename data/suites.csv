@@ -1,0 +1,6 @@
+"DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
+"","4674","firstJobTitleIsNotEmpty()","","Sat Aug 15 08:45:04 KGT 2026","passed","Sat Aug 15 08:45:09 KGT 2026","","tests.CaterpillarJobsTest","tests.CaterpillarJobsTest","firstJobTitleIsNotEmpty"
+"","153","jobCountIsPositiveNumber()","","Sat Aug 15 08:45:09 KGT 2026","passed","Sat Aug 15 08:45:09 KGT 2026","","tests.CaterpillarJobsTest","tests.CaterpillarJobsTest","jobCountIsPositiveNumber"
+"","874","pageOpensAndShowsJobs()","","Sat Aug 15 08:45:13 KGT 2026","passed","Sat Aug 15 08:45:14 KGT 2026","","tests.CaterpillarJobsTest","tests.CaterpillarJobsTest","pageOpensAndShowsJobs"
+"","143","pageShowsTwentyCards()","","Sat Aug 15 08:45:14 KGT 2026","passed","Sat Aug 15 08:45:14 KGT 2026","","tests.CaterpillarJobsTest","tests.CaterpillarJobsTest","pageShowsTwentyCards"
+"","3522","searchReturnsResults()","","Sat Aug 15 08:45:09 KGT 2026","passed","Sat Aug 15 08:45:13 KGT 2026","","tests.CaterpillarJobsTest","tests.CaterpillarJobsTest","searchReturnsResults"
