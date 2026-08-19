@@ -1,10 +1,26 @@
 # Caterpillar Jobs UI Test Automation
 
 <p align="center">
-  <img src="media/caterpillar-logo.png" alt="Caterpillar Logo" width="450">
+  <img src="media/caterpillar-logo.png" alt="Caterpillar Logo" width="300">
 </p>
 
-UI test automation project for the [Caterpillar Careers](https://careers.caterpillar.com/) website.
+<p align="center">
+  UI test automation project for the Caterpillar Careers website
+</p>
+
+<p align="center">
+  <a href="https://careers.caterpillar.com/">
+    <b>Caterpillar Careers</b>
+  </a>
+  •
+  <a href="https://jenkins.qa.guru/job/41-Aikerim-caterpillar-ui-tests/">
+    <b>Jenkins</b>
+  </a>
+  •
+  <a href="https://aikerimmm.github.io/CaterpillarJobsTest.java/">
+    <b>Allure Report</b>
+  </a>
+</p>
 
 The project demonstrates automated testing of the Caterpillar Jobs page using **Java, Selenide, JUnit 5, Gradle, Allure Report, Jenkins, and Selenoid**.
 
@@ -12,17 +28,21 @@ The project demonstrates automated testing of the Caterpillar Jobs page using **
 
 ## 📋 Contents
 
-- [Description](#description)
-- [Technologies and Tools](#technologies-and-tools)
-- [Implemented Tests](#implemented-tests)
-- [Project Structure](#project-structure)
-- [Test Architecture](#test-architecture)
-- [Running Tests](#running-tests)
-- [Selenoid](#selenoid)
-- [Allure Report](#allure-report)
-- [Jenkins CI](#jenkins-ci)
-- [Telegram Notifications](#telegram-notifications)
-- [Test Execution Video](#test-execution-video)
+- [Description](#-description)
+- [Technologies and Tools](#-technologies-and-tools)
+- [Implemented Tests](#-implemented-tests)
+- [Project Structure](#-project-structure)
+- [Test Architecture](#-test-architecture)
+- [Running Tests](#️-running-tests)
+- [Selenoid](#-selenoid)
+- [Allure Report](#-allure-report)
+- [Jenkins CI](#-jenkins-ci)
+- [Telegram Notifications](#-telegram-notifications)
+- [Test Execution Video](#-test-execution-video)
+- [Allure Attachments](#-allure-attachments)
+- [Configuration](#️-configuration)
+- [Key Features](#-key-features)
+- [Author](#-author)
 
 ---
 
@@ -32,7 +52,7 @@ This project contains automated UI tests for the **Caterpillar Careers Jobs** pa
 
 The main goal of the project is to demonstrate a maintainable UI automation framework with:
 
-- Page Object pattern
+- Page Object Model
 - reusable `TestBase`
 - Selenide smart waits
 - Allure `@Step` annotations
@@ -42,13 +62,38 @@ The main goal of the project is to demonstrate a maintainable UI automation fram
 - Allure reporting
 - Telegram test notifications
 
-Tested page:
+### Tested Page
 
-https://careers.caterpillar.com/en/jobs/
+[Caterpillar Careers — Jobs](https://careers.caterpillar.com/en/jobs/)
 
 ---
 
 ## 🛠 Technologies and Tools
+
+<p align="center">
+  <img width="55" title="Java" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg"/>
+  &nbsp;&nbsp;
+  <img width="55" title="Gradle" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/gradle/gradle-original.svg"/>
+  &nbsp;&nbsp;
+  <img width="55" title="Jenkins" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jenkins/jenkins-original.svg"/>
+  &nbsp;&nbsp;
+  <img width="55" title="Docker" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg"/>
+  &nbsp;&nbsp;
+  <img width="55" title="Git" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg"/>
+  &nbsp;&nbsp;
+  <img width="55" title="GitHub" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg"/>
+  &nbsp;&nbsp;
+  <img width="55" title="IntelliJ IDEA" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/intellij/intellij-original.svg"/>
+</p>
+
+<p align="center">
+  <b>Selenide</b> •
+  <b>Selenium WebDriver</b> •
+  <b>JUnit 5</b> •
+  <b>Allure Report</b> •
+  <b>Selenoid</b> •
+  <b>Telegram</b>
+</p>
 
 | Technology | Purpose |
 |---|---|
@@ -121,12 +166,16 @@ CaterpillarJobsTest.java
 │   └── images
 │       ├── allure.png
 │       ├── jenkins.png
-│       └── telegram.png
+│       ├── telegram.png
+│       └── video
+│           └── test-execution.gif
 │
 ├── gradle
 │
 ├── media
-│   └── test-execution.mov
+│   ├── caterpillar-logo.png
+│   ├── test-execution.mov
+│   └── test-execution.mp4
 │
 ├── notifications
 │   ├── allure-notifications-4.11.0.jar
@@ -228,9 +277,11 @@ Make sure the following tools are installed:
 
 - Java
 - Docker
-- Gradle Wrapper is included in the project
+- Git
 
-Clone the repository:
+Gradle Wrapper is already included in the project.
+
+### Clone Repository
 
 ```bash
 git clone https://github.com/aikerimmm/CaterpillarJobsTest.java.git
@@ -242,13 +293,13 @@ Open the project directory:
 cd CaterpillarJobsTest.java
 ```
 
-Run all tests:
+### Run All Tests
 
 ```bash
 ./gradlew clean test
 ```
 
-Run a specific test:
+### Run a Specific Test
 
 ```bash
 ./gradlew clean test --tests "tests.CaterpillarJobsTest.pageOpensAndShowsJobs"
@@ -276,10 +327,26 @@ Check that Selenoid is running:
 docker ps
 ```
 
-The Selenoid container should be available on port:
+The Selenoid service should be available on port:
 
 ```text
 4444
+```
+
+The test execution flow is:
+
+```text
+JUnit 5
+   ↓
+Selenide
+   ↓
+Remote WebDriver
+   ↓
+Selenoid
+   ↓
+Docker Container
+   ↓
+Chrome
 ```
 
 ---
@@ -288,9 +355,14 @@ The Selenoid container should be available on port:
 
 The project uses **Allure Report** for test execution reporting.
 
-🌐 [Open Public Allure Report](https://aikerimmm.github.io/CaterpillarJobsTest.java/)
+<p align="center">
+  <a href="https://aikerimmm.github.io/CaterpillarJobsTest.java/">
+    <b>Open Public Allure Report</b>
+  </a>
+</p>
 
 The report includes:
+
 - test execution status
 - test steps
 - execution duration
@@ -300,7 +372,11 @@ The report includes:
 
 ### Allure Report Example
 
-![Allure Report](.github/images/allure.png)
+<p align="center">
+  <a href="https://aikerimmm.github.io/CaterpillarJobsTest.java/">
+    <img src=".github/images/allure.png" alt="Allure Report" width="75%">
+  </a>
+</p>
 
 ### Generate Allure Report
 
@@ -308,7 +384,7 @@ The report includes:
 ./gradlew allureReport
 ```
 
-### Open Allure Report
+### Open Allure Report Locally
 
 ```bash
 ./gradlew allureServe
@@ -320,22 +396,60 @@ Screenshots and page source are attached to Allure to simplify failure investiga
 
 ## 🔄 Jenkins CI
 
-The project is integrated with **Jenkins CI**.
+The project is integrated with **Jenkins CI** for automated test execution.
 
-The Jenkins pipeline:
+<p align="center">
+  <a href="https://jenkins.qa.guru/job/41-Aikerim-caterpillar-ui-tests/">
+    <b>Open Jenkins Job</b>
+  </a>
+</p>
+
+The Jenkins CI process:
+
 - checks out the project from GitHub
 - runs automated UI tests
+- executes browser tests using remote infrastructure
 - generates Allure results
 - publishes the Allure report
 - sends test execution notifications
 
-> Jenkins is configured and executed locally, therefore the Jenkins instance itself is not publicly accessible.
+### Jenkins CI Flow
+
+```text
+GitHub
+   ↓
+Jenkins
+   ↓
+Gradle
+   ↓
+JUnit 5
+   ↓
+Selenide
+   ↓
+Selenoid
+   ↓
+UI Tests
+   ↓
+Allure Report
+   ↓
+Telegram Notification
+```
 
 ### Jenkins Pipeline
 
-![Jenkins Pipeline](.github/images/jenkins.png)
+<p align="center">
+  <a href="https://jenkins.qa.guru/job/41-Aikerim-caterpillar-ui-tests/">
+    <img src=".github/images/jenkins.png" alt="Jenkins Pipeline" width="75%">
+  </a>
+</p>
 
-This allows automated tests to be executed consistently without depending only on a local development environment.
+<p align="center">
+  <a href="https://jenkins.qa.guru/job/41-Aikerim-caterpillar-ui-tests/">
+    <b>Open Jenkins Job</b>
+  </a>
+</p>
+
+This allows automated tests to be executed consistently through CI instead of depending only on a local development environment.
 
 ---
 
@@ -353,9 +467,20 @@ notifications/
 
 After test execution, the notification contains information about the test run and its result.
 
+The notification can include:
+
+- total number of tests
+- passed tests
+- failed tests
+- skipped tests
+- test execution statistics
+- Allure report information
+
 ### Telegram Notification Example
 
-![Telegram Notification](.github/images/telegram.png)
+<p align="center">
+  <img src=".github/images/telegram.png" alt="Telegram Notification" width="55%">
+</p>
 
 Sensitive credentials and tokens should not be stored directly in the public repository.
 
@@ -366,12 +491,14 @@ Sensitive credentials and tokens should not be stored directly in the public rep
 A recorded example of automated UI test execution.
 
 <p align="center">
-  <img src=".github/images/video/test-execution.gif" width="800">
+  <img src=".github/images/video/test-execution.gif" alt="Test Execution" width="750">
 </p>
 
 The animation demonstrates the automated tests interacting with the Caterpillar Careers website.
 
 [▶️ Open full test execution video](media/test-execution.mp4)
+
+---
 
 ## 📎 Allure Attachments
 
@@ -389,6 +516,8 @@ Example screenshot attachment logic is located in:
 ```text
 src/test/java/base/TestBase.java
 ```
+
+These attachments make it easier to investigate failed UI tests without rerunning them locally.
 
 ---
 
@@ -415,16 +544,17 @@ The configuration can be adjusted depending on whether tests are executed locall
 ## 🔍 Key Features
 
 - Page Object Model
-- reusable TestBase
+- reusable `TestBase`
 - Selenide smart waits
-- Selenide conditions instead of standard JUnit assertions for web elements
+- Selenide conditions for web element assertions
 - Allure `@Step` annotations
 - screenshots on test failures
 - page source attachments
 - remote browser execution
 - Docker/Selenoid integration
-- Jenkins CI pipeline
-- Allure reporting
+- Jenkins CI
+- public Jenkins job
+- public Allure Report
 - Telegram notifications
 - recorded test execution example
 
