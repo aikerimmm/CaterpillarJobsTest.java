@@ -5,12 +5,17 @@ import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
 
 import static com.codeborne.selenide.CollectionCondition.sizeGreaterThan;
-import static com.codeborne.selenide.Condition.*;
-import static com.codeborne.selenide.Selenide.*;
+import static com.codeborne.selenide.Condition.empty;
+import static com.codeborne.selenide.Condition.enabled;
+import static com.codeborne.selenide.Condition.visible;
+import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.$$;
+import static com.codeborne.selenide.Selenide.open;
 
 public class CaterpillarJobsPage {
 
-    private static final String JOBS_URL ="/jobs/?search=&team=Technology%2C+Digital+and+Data&team=Engineering#results";
+    private static final String JOBS_URL =
+            "/jobs/?search=&team=Technology%2C+Digital+and+Data&team=Engineering#results";
 
     private final SelenideElement searchInput = $("#l-search");
     private final SelenideElement searchButton = $("#js-main-job-search");
@@ -19,8 +24,8 @@ public class CaterpillarJobsPage {
     private final ElementsCollection jobCards = $$(".card-job");
 
     @Step("Open Caterpillar jobs page")
-    public CaterpillarJobsPage open() {
-        com.codeborne.selenide.Selenide.open(JOBS_URL);
+    public CaterpillarJobsPage openPage() {
+        open(JOBS_URL);
         resultsContainer.shouldBe(visible);
         return this;
     }
@@ -38,7 +43,7 @@ public class CaterpillarJobsPage {
     }
 
     @Step("Search jobs by query: {query}")
-    public CaterpillarJobsPage search(String query) {
+    public CaterpillarJobsPage searchForJob(String query) {
         searchInput
                 .shouldBe(visible)
                 .setValue(query);
@@ -46,6 +51,8 @@ public class CaterpillarJobsPage {
         searchButton
                 .shouldBe(enabled)
                 .click();
+
+        resultsContainer.shouldBe(visible);
 
         return this;
     }
